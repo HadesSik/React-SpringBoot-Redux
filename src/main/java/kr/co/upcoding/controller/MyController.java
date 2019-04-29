@@ -8,32 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.upcoding.mapper.TestMapper;
-import kr.co.upcoding.vo.TestVO;
- 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class MyController {
-	
-	@Autowired
-	TestMapper testMapper;
- 
-    @GetMapping("/{name}.html")
-    public String page(@PathVariable String name, Model model) {
-        model.addAttribute("pageName", name);
+
+    // main.bundle.js 로 매핑할 경로 for SPA
+    @GetMapping(value = {"/"})
+    public String main(Model model, HttpServletRequest req) {
+        model.addAttribute("pageName", "main");
         return "page";
     }
- 
-    @RequestMapping(value = "/testinsert", method=RequestMethod.POST)
-    public String testInsert(TestVO vo) {
-    	testMapper.testInsert(vo);
-    	
-    	return "sucsex";
-    }
-    
-    @RequestMapping(value = "/testdelete", method=RequestMethod.POST)
-    public String testDelete(TestVO vo) {
-    	testMapper.testDelete(vo);
-    	
-    	return "asf";
-    }
+
 }
